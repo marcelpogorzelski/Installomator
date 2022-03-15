@@ -25,10 +25,10 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # also no actual installation will be performed
 # debug mode 1 will download to the directory the script is run in, but will not check the version 
 # debug mode 2 will download to the temp directory, check for blocking processes, check the version, but will not install anything or remove the current version
-DEBUG=1
+DEBUG=0
 
 # notify behavior
-NOTIFY=success
+NOTIFY=all
 # options:
 #   - success      notify the user on success
 #   - silent       no notifications
@@ -73,7 +73,7 @@ BLOCKING_PROCESS_ACTION=tell_user
 
 
 # logo-icon used in dialog boxes if app is blocking
-LOGO=appstore
+LOGO=jamf
 # options:
 #   - appstore      Icon is Apple App Store (default)
 #   - jamf          JAMF Pro
@@ -96,7 +96,7 @@ IGNORE_APP_STORE_APPS=no
 #                  Known bad example: Slack will lose all settings.
 
 # Owner of copied apps
-SYSTEMOWNER=0
+SYSTEMOWNER=1
 # options:
 #  - 0             Current user will be owner of copied apps, just like if they
 #                  installed it themselves (default).
@@ -301,8 +301,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="9.0.1"
-VERSIONDATE="2022-02-20"
+VERSION="9.1beta"
+VERSIONDATE="2022-03-15"
 
 # MARK: Functions
 
@@ -1990,6 +1990,15 @@ docker)
     fi
     expectedTeamID="9BNSXJN65R"
     ;;
+dockutil)
+    name="dockutil"
+    type="pkg"
+    packageID="dockutil.cli.tool"
+    downloadURL=$(downloadURLFromGit "kcrawford" "dockutil")
+    appNewVersion=$(versionFromGit "kcrawford" "dockutil")
+    expectedTeamID="Z5J8CJBUWC"
+    blockingProcesses=( NONE )
+    ;;
 drift)
     # credit Elena Ackley (@elenaelago)
     name="Drift"
@@ -2966,8 +2975,9 @@ microsoftcompanyportal)
     updateTool="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/msupdate"
     updateToolArguments=( --install --apps IMCP01 )
     ;;
+microsoftdefender|\
 microsoftdefenderatp)
-    name="Microsoft Defender ATP"
+    name="Microsoft Defender"
     type="pkg"
     downloadURL="https://go.microsoft.com/fwlink/?linkid=2097502"
     appNewVersion=$(curl -fs https://macadmins.software/latest.xml | xpath '//latest/package[id="com.microsoft.defender.standalone"]/version' 2>/dev/null | sed -E 's/<version>([0-9.]*) .*/\1/')
@@ -4539,6 +4549,7 @@ zoom)
     type="pkg"
     downloadURL="https://zoom.us/client/latest/ZoomInstallerIT.pkg"
     appNewVersion="$(curl -fsIL ${downloadURL} | grep -i ^location | cut -d "/" -f5)"
+    versionKey="CFBundleVersion"
     expectedTeamID="BJ4HAAB9B3"
     ;;
 zoomclient)

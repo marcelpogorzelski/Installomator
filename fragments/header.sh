@@ -25,10 +25,10 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # also no actual installation will be performed
 # debug mode 1 will download to the directory the script is run in, but will not check the version 
 # debug mode 2 will download to the temp directory, check for blocking processes, check the version, but will not install anything or remove the current version
-DEBUG=1
+DEBUG=0
 
 # notify behavior
-NOTIFY=success
+NOTIFY=all
 # options:
 #   - success      notify the user on success
 #   - silent       no notifications
@@ -73,7 +73,7 @@ BLOCKING_PROCESS_ACTION=tell_user
 
 
 # logo-icon used in dialog boxes if app is blocking
-LOGO=appstore
+LOGO=jamf
 # options:
 #   - appstore      Icon is Apple App Store (default)
 #   - jamf          JAMF Pro
@@ -96,7 +96,7 @@ IGNORE_APP_STORE_APPS=no
 #                  Known bad example: Slack will lose all settings.
 
 # Owner of copied apps
-SYSTEMOWNER=0
+SYSTEMOWNER=1
 # options:
 #  - 0             Current user will be owner of copied apps, just like if they
 #                  installed it themselves (default).

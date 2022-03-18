@@ -302,7 +302,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="9.1"
+VERSION="9.2beta"
 VERSIONDATE="2022-03-18"
 
 # MARK: Functions
@@ -2038,6 +2038,13 @@ diskspace)
     downloadURL="$(downloadURLFromGit scriptingosx diskspace)"
     appNewVersion="$(versionFromGit scriptingosx diskspace)"
     expectedTeamID="JME5BW3F3R"
+    ;;
+displaylinkmanager)
+    name="DisplayLink Manager"
+    type="pkg"
+    packageID="com.displaylink.displaylinkmanagerapp"
+    downloadURL=https://www.synaptics.com$(redirect=$(curl -sfL https://www.synaptics.com/products/displaylink-graphics/downloads/macos | grep 'class="download-link">Download' | head -n 1 | sed 's/.*href="//' | sed 's/".*//') && curl -sfL "https://www.synaptics.com$redirect" | grep Accept | head -n 1 | sed 's/.*href="//' | sed 's/".*//')
+    expectedTeamID="73YQY62QM3"
     ;;
 docker)
     name="Docker"

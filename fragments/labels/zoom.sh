@@ -5,4 +5,5 @@ zoom)
     appNewVersion="$(curl -fsIL ${downloadURL} | grep -i ^location | cut -d "/" -f5)"
     versionKey="CFBundleVersion"
     expectedTeamID="BJ4HAAB9B3"
+    versionKey="CFBundleVersion"
     ;;

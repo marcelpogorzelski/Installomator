@@ -3307,6 +3307,13 @@ microsoftyammer)
     #updateTool="/Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/msupdate --list; /Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app/Contents/MacOS/msupdate"
     #updateToolArguments=( --install --apps ?????? )
     ;;
+mindmanager)
+    name="MindManager"
+    type="dmg"
+    downloadURL="https://www.mindmanager.com/mm-mac-dmg"
+    appNewVersion="$(curl -fsIL "${downloadURL}" | grep -i "^location" | awk '{print $2}' | sed -E 's/.*_Mac_*([0-9.]*)\..*/\1/g')"
+    expectedTeamID="ZF6ZZ779N5"
+    ;;
 miro)
     # credit: @matins
     name="Miro"

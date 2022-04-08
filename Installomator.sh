@@ -303,7 +303,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
     fi
 fi
 VERSION="9.2beta"
-VERSIONDATE="2022-03-18"
+VERSIONDATE="2022-04-08"
 
 # MARK: Functions
 
@@ -2883,8 +2883,9 @@ libreoffice)
     expectedTeamID="7P5S3ZLCN7"
     blockingProcesses=( soffice )
     ;;
+logioptions|\
 logitechoptions)
-    name="Logitech Options"
+    name="Logi Options"
     type="pkgInZip"
     #downloadURL=$(curl -fs "https://support.logi.com/api/v2/help_center/en-us/articles.json?label_names=webcontent=productdownload,webos=mac-macos-x-11.0" | tr "," "\n" | grep -A 10 "macOS" | grep -oie "https.*/.*/options/.*\.zip" | head -1)
     downloadURL="https://download01.logi.com/web/ftp/pub/techsupport/options/options_installer.zip"

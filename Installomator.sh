@@ -303,7 +303,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
     fi
 fi
 VERSION="9.2beta"
-VERSIONDATE="2022-04-08"
+VERSIONDATE="2022-04-11"
 
 # MARK: Functions
 
@@ -1876,6 +1876,24 @@ cloudya)
     downloadURL="$(curl -fs https://www.nfon.com/de/service/downloads | grep -i -E -o "https://cdn.cloudya.com/Cloudya-[.0-9]+-mac.zip")"
     appNewVersion="$(curl -fs https://www.nfon.com/de/service/downloads | grep -i -E -o "Cloudya Desktop App MAC [0-9.]*" | sed 's/^.*\ \([^ ]\{0,7\}\)$/\1/g')"
     expectedTeamID="X26F74J8TH"
+    ;;
+clue)
+    #For personal use and students
+    name="Clue"
+    type="dmg"
+    downloadURL=$(curl -fsL https://clue.no/en/download | grep "For personal use and students:" | sed 's/.*href="//' | sed 's/".*//')
+    appNewVersion="$(echo "${downloadURL}" | sed -E 's/.*Clue*([0-9.]*)\..*/\1/g')"
+    versionKey="CFBundleVersion"
+    expectedTeamID="3NX6B9TB2F"
+    ;;
+cluefull)
+    #For companies and schools
+    name="Clue"
+    type="dmg"
+    downloadURL=$(curl -fsL https://clue.no/en/download | grep "For companies and schools:" | sed 's/.*href="//' | sed 's/".*//')
+    appNewVersion="$(echo "${downloadURL}" | sed -E 's/.*Clue*([0-9.]*)\F.*/\1/g')"
+    versionKey="CFBundleVersion"
+    expectedTeamID="3NX6B9TB2F"
     ;;
 code42)
     name="Code42"

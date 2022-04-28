@@ -303,7 +303,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
     fi
 fi
 VERSION="9.2beta"
-VERSIONDATE="2022-04-11"
+VERSIONDATE="2022-04-28"
 
 # MARK: Functions
 
@@ -1803,10 +1803,12 @@ camostudio)
     # Camo Studio will ask for admin permissions to install som plug-ins. that has not been handled.
     expectedTeamID="Q248YREB53"
     ;;
-camtasia)
-    name="Camtasia 2020"
+camtasia|\
+camtasia2021)
+    name="Camtasia 2021"
     type="dmg"
     downloadURL=https://download.techsmith.com/camtasiamac/releases/Camtasia.dmg
+    appNewVersion=$(curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -fs "https://support.techsmith.com/hc/en-us/articles/360004908652-Desktop-Product-Download-Links"  | grep "Camtasia (Mac)" | head -1 | sed -e 's/.*Camtasia (Mac) //' -e 's/<\/td>.*//')
     expectedTeamID="7TQL462TU8"
     ;;
 canva)
@@ -3684,6 +3686,14 @@ pandoc)
     archiveName="mac.pkg"
     expectedTeamID="5U2WKE6DES"
     ;;
+panopto)
+    name="Panopto"
+    type="pkg"
+    archiveName="uit.cloud.panopto.eu_panoptoformac.pkg"
+    downloadURL="https://uit.cloud.panopto.eu/Panopto/Software/Panopto%20Recorder.pkg"
+    appNewVersion=$(curl -fs "https://www.macupdater.net/app_updates/appinfo/com.panopto.mac/index.html" | grep -A 1 "Version String:" | awk -F'</*td>' '$2{print $2}' | tail -1)
+    expectedTeamID="G7FR783UED"
+    ;;
 paretosecurity)
     name="Pareto Security"
     type="dmg"
@@ -4109,11 +4119,13 @@ smartgit)
     expectedTeamID="PHMY45PTNW"
     ;;
 snagit|\
+snagit2022|\
 snagit2021|\
 snagit2020)
-    name="Snagit 2021"
+    name="Snagit 2022"
     type="dmg"
     downloadURL="https://download.techsmith.com/snagitmac/releases/Snagit.dmg"
+    appNewVersion=$( curl -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15" -fs "https://support.techsmith.com/hc/en-us/articles/360004908652-Desktop-Product-Download-Links"  | grep "Snagit (Mac)" | head -1 | sed -e 's/.*Snagit (Mac) //' -e 's/<\/td>.*//')
     expectedTeamID="7TQL462TU8"
     ;;
 snapgeneviewer)

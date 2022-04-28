@@ -6,4 +6,3 @@ panopto)
     appNewVersion=$(curl -fs "https://www.macupdater.net/app_updates/appinfo/com.panopto.mac/index.html" | grep -A 1 "Version String:" | awk -F'</*td>' '$2{print $2}' | tail -1)
     expectedTeamID="G7FR783UED"
     ;;
-    
